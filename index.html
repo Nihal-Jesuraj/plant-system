@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PlantIQ — Smart plant care application with watering reminders, disease detection, and environmental monitoring for healthier plants.">
+  <meta name="keywords" content="plant care, plant health, watering reminders, disease detection, environmental monitoring, gardening">
+  <title>PlantIQ — Smart Plant Care Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ═══ Sidebar ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🌿</div>
+        <div class="sidebar-brand">Plant<span>IQ</span></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main</div>
+        <a class="nav-item active" data-page="dashboard" id="nav-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a class="nav-item" data-page="plants" id="nav-plants">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+          My Plants
+          <span class="nav-badge" id="plant-count-badge">6</span>
+        </a>
+
+        <div class="nav-section-label">Tools</div>
+        <a class="nav-item" data-page="disease" id="nav-disease">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+          Disease Scanner
+        </a>
+        <a class="nav-item" data-page="environment" id="nav-environment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+          Environment
+        </a>
+        <a class="nav-item" data-page="reminders" id="nav-reminders">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          Reminders
+          <span class="nav-badge">3</span>
+        </a>
+
+        <div class="nav-section-label">More</div>
+        <a class="nav-item" id="nav-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar">N</div>
+          <div class="user-info">
+            <div class="user-name">Nihal</div>
+            <div class="user-role">Plant Enthusiast</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ═══ Main Content ═══ -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div>
+            <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            <p class="page-subtitle" id="pageSubtitle">Welcome back, Nihal! Your plants are looking great.</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="header-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search plants, diseases..." id="searchInput">
+          </div>
+          <button class="header-btn" id="notifyBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="notification-dot"></span>
+          </button>
+          <button class="header-btn" id="themeBtn" aria-label="Theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- ═══════════════ DASHBOARD PAGE ═══════════════ -->
+        <section class="page-section active" id="page-dashboard">
+          <!-- Welcome Banner -->
+          <div class="welcome-banner">
+            <div class="welcome-text">
+              <h1>Good Morning, Nihal 🌱</h1>
+              <p>Your garden is thriving! 4 of your 6 plants need attention today. Stay on top of your watering schedule and keep your green friends happy.</p>
+            </div>
+            <div class="welcome-stats">
+              <div class="welcome-stat">
+                <div class="welcome-stat-value" id="totalPlantsCount">6</div>
+                <div class="welcome-stat-label">Total Plants</div>
+              </div>
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">4</div>
+                <div class="welcome-stat-label">Healthy</div>
+              </div>
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">2</div>
+                <div class="welcome-stat-label">Need Care</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Row -->
+          <div class="stats-row">
+            <div class="stat-card" id="stat-total">
+              <div class="stat-icon green">🪴</div>
+              <div class="stat-content">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Total Plants</div>
+                <span class="stat-change positive">+2 this month</span>
+              </div>
+            </div>
+            <div class="stat-card" id="stat-healthy">
+              <div class="stat-icon green">✅</div>
+              <div class="stat-content">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Healthy Plants</div>
+                <span class="stat-change positive">67% health rate</span>
+              </div>
+            </div>
+            <div class="stat-card" id="stat-attention">
+              <div class="stat-icon amber">⚠️</div>
+              <div class="stat-content">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Need Attention</div>
+                <span class="stat-change negative">Check now</span>
+              </div>
+            </div>
+            <div class="stat-card" id="stat-watered">
+              <div class="stat-icon sky">💧</div>
+              <div class="stat-content">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Watered Today</div>
+                <span class="stat-change positive">On schedule</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Grid -->
+          <div class="dashboard-grid">
+            <!-- Plant Health Score Card (CorteX AI Score inspired) -->
+            <div class="col-7">
+              <div class="card health-score-card" id="healthScoreCard">
+                <div class="health-score-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+                  Plant Health Score
+                </div>
+
+                <div class="health-score-display">
+                  <span class="health-score-value" id="overallHealthScore">0.82</span>
+                  <span class="health-score-scale">/ 1.00</span>
+                  <span class="health-score-label-text">Overall Score</span>
+                </div>
+
+                <div class="health-bar-container">
+                  <div class="health-bar-label">Good Health</div>
+                  <div class="health-bar">
+                    <div class="health-bar-indicator" id="healthBarIndicator" style="left: 82%"></div>
+                  </div>
+                  <div class="health-bar-range">
+                    <span>0</span>
+                    <span>100</span>
+                  </div>
+                </div>
+
+                <div class="health-metrics-row">
+                  <div class="health-metric-card">
+                    <div class="health-metric-title">Plant Vitals</div>
+                    <div class="metric-item">
+                      <div class="metric-bar excellent">Moisture</div>
+                      <span class="metric-value">85%</span>
+                    </div>
+                    <div class="metric-item">
+                      <div class="metric-bar good">Nutrient</div>
+                      <span class="metric-value">72%</span>
+                    </div>
+                    <div class="metric-item">
+                      <div class="metric-bar fair">Light Exp.</div>
+                      <span class="metric-value">58%</span>
+                    </div>
+                    <div class="metric-item">
+                      <div class="metric-bar excellent">Root Health</div>
+                      <span class="metric-value">90%</span>
+                    </div>
+                  </div>
+                  <div class="health-metric-card">
+                    <div class="health-metric-title">Environment Radar</div>
+                    <div class="radar-chart-container">
+                      <canvas id="environmentRadar" width="220" height="220"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Countdown + Tasks -->
+            <div class="col-5">
+              <!-- Watering Countdown Gauge -->
+              <div class="card" style="margin-bottom: 20px;">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Next Watering</div>
+                    <div class="card-subtitle">Peace Lily — Living Room</div>
+                  </div>
+                </div>
+                <div class="countdown-gauge">
+                  <div class="gauge-wrapper">
+                    <svg class="gauge-svg" width="160" height="160" viewBox="0 0 160 160">
+                      <circle class="gauge-bg" cx="80" cy="80" r="65"/>
+                      <circle class="gauge-fill" cx="80" cy="80" r="65"
+                        stroke="url(#gaugeGradient)"
+                        stroke-dasharray="408.4"
+                        stroke-dashoffset="122.5"
+                        id="gaugeFill"/>
+                      <defs>
+                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" style="stop-color:#8BC34A"/>
+                          <stop offset="50%" style="stop-color:#F5C842"/>
+                          <stop offset="100%" style="stop-color:#F09040"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div class="gauge-center">
+                      <div class="gauge-number" id="daysLeft">2</div>
+                      <div class="gauge-label">days left</div>
+                    </div>
+                  </div>
+                  <div class="gauge-checkpoints" id="gaugeCheckpoints">
+                    <div class="checkpoint completed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="checkpoint completed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="checkpoint">3</div>
+                    <div class="checkpoint">4</div>
+                    <div class="checkpoint">5</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upcoming Tasks -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Upcoming Tasks</div>
+                    <div class="card-subtitle">Next 7 days</div>
+                  </div>
+                  <button class="card-action-btn" onclick="navigateTo('reminders')">View All</button>
+                </div>
+                <div class="task-list" id="taskList">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="col-5">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Recent Activity</div>
+                    <div class="card-subtitle">Your plant care log</div>
+                  </div>
+                </div>
+                <div class="activity-list" id="activityList">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Environment Mini Cards -->
+            <div class="col-7">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Environment Overview</div>
+                    <div class="card-subtitle">Current conditions across your home</div>
+                  </div>
+                  <button class="card-action-btn" onclick="navigateTo('environment')">Details</button>
+                </div>
+                <div class="environment-grid" style="margin-bottom:0;">
+                  <div class="env-card" style="border:1px solid var(--neutral-150);">
+                    <div class="env-icon temp">🌡️</div>
+                    <div class="env-value">24<span class="env-unit">°C</span></div>
+                    <div class="env-label">Temperature</div>
+                    <div class="env-status optimal">● Optimal</div>
+                  </div>
+                  <div class="env-card" style="border:1px solid var(--neutral-150);">
+                    <div class="env-icon humidity">💧</div>
+                    <div class="env-value">62<span class="env-unit">%</span></div>
+                    <div class="env-label">Humidity</div>
+                    <div class="env-status optimal">● Optimal</div>
+                  </div>
+                  <div class="env-card" style="border:1px solid var(--neutral-150);">
+                    <div class="env-icon light">☀️</div>
+                    <div class="env-value">780<span class="env-unit">lux</span></div>
+                    <div class="env-label">Light Level</div>
+                    <div class="env-status warning">● Moderate</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════ MY PLANTS PAGE ═══════════════ -->
+        <section class="page-section" id="page-plants">
+          <div class="plants-header">
+            <div class="plants-filters">
+              <button class="filter-pill active" data-filter="all">All Plants</button>
+              <button class="filter-pill" data-filter="healthy">Healthy</button>
+              <button class="filter-pill" data-filter="warning">Needs Care</button>
+              <button class="filter-pill" data-filter="indoor">Indoor</button>
+              <button class="filter-pill" data-filter="outdoor">Outdoor</button>
+            </div>
+            <button class="btn-primary" id="addPlantBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Plant
+            </button>
+          </div>
+
+          <div class="plants-grid" id="plantsGrid">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- ═══════════════ DISEASE DETECTION PAGE ═══════════════ -->
+        <section class="page-section" id="page-disease">
+          <div class="disease-layout">
+            <div>
+              <!-- Upload Zone -->
+              <div class="upload-zone" id="uploadZone">
+                <div class="upload-zone-icon">📸</div>
+                <h3>Upload Plant Photo</h3>
+                <p>Drag & drop an image or click to browse. We'll analyze it for signs of disease or infection.</p>
+                <button class="upload-btn" id="uploadBtn">Choose File</button>
+                <input type="file" class="hidden-input" id="fileInput" accept="image/*">
+              </div>
+              <div class="upload-preview" id="uploadPreview">
+                <img id="previewImage" src="" alt="Plant preview">
+                <button class="remove-image" id="removeImage">✕</button>
+              </div>
+              <button class="btn-analyze" id="analyzeBtn" disabled>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Analyze Plant
+              </button>
+            </div>
+
+            <!-- Results -->
+            <div>
+              <div class="disease-results" id="diseaseResults">
+                <!-- Populated by JS -->
+              </div>
+
+              <!-- Disease Library -->
+              <div class="disease-library">
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <div class="card-title">Common Plant Diseases</div>
+                      <div class="card-subtitle">Reference library</div>
+                    </div>
+                  </div>
+                  <div class="disease-library-grid" id="diseaseLibrary">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════ ENVIRONMENT PAGE ═══════════════ -->
+        <section class="page-section" id="page-environment">
+          <div class="environment-grid">
+            <div class="env-card" id="envTemp">
+              <div class="env-icon temp">🌡️</div>
+              <div class="env-value" id="envTempValue">24<span class="env-unit">°C</span></div>
+              <div class="env-label">Temperature</div>
+              <div class="env-status optimal" id="envTempStatus">● Optimal</div>
+            </div>
+            <div class="env-card" id="envHumidity">
+              <div class="env-icon humidity">💧</div>
+              <div class="env-value" id="envHumidityValue">62<span class="env-unit">%</span></div>
+              <div class="env-label">Humidity</div>
+              <div class="env-status optimal" id="envHumidityStatus">● Optimal</div>
+            </div>
+            <div class="env-card" id="envLight">
+              <div class="env-icon light">☀️</div>
+              <div class="env-value" id="envLightValue">780<span class="env-unit">lux</span></div>
+              <div class="env-label">Light Level</div>
+              <div class="env-status warning" id="envLightStatus">● Moderate</div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="col-8">
+              <div class="env-chart-card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">24-Hour Trends</div>
+                    <div class="card-subtitle">Temperature, humidity, and light over time</div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="card-action-btn active" data-chart-range="24h">24H</button>
+                    <button class="card-action-btn" data-chart-range="7d">7D</button>
+                    <button class="card-action-btn" data-chart-range="30d">30D</button>
+                  </div>
+                </div>
+                <div class="chart-container">
+                  <canvas id="envChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Optimal Ranges</div>
+                    <div class="card-subtitle">For your plant collection</div>
+                  </div>
+                </div>
+                <div class="task-list">
+                  <div class="task-item">
+                    <div class="task-icon" style="background:#fee2e2;">🌡️</div>
+                    <div class="task-details">
+                      <div class="task-name">Temperature</div>
+                      <div class="task-plant">18°C — 28°C</div>
+                    </div>
+                    <span class="tag green">✓ In Range</span>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-icon" style="background:#dbeafe;">💧</div>
+                    <div class="task-details">
+                      <div class="task-name">Humidity</div>
+                      <div class="task-plant">50% — 75%</div>
+                    </div>
+                    <span class="tag green">✓ In Range</span>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-icon" style="background:#fef3c7;">☀️</div>
+                    <div class="task-details">
+                      <div class="task-name">Light Level</div>
+                      <div class="task-plant">500 — 2000 lux</div>
+                    </div>
+                    <span class="tag green">✓ In Range</span>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-icon" style="background:var(--green-100);">🌱</div>
+                    <div class="task-details">
+                      <div class="task-name">Soil pH</div>
+                      <div class="task-plant">6.0 — 7.0</div>
+                    </div>
+                    <span class="tag amber">⚠ Check</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════ REMINDERS PAGE ═══════════════ -->
+        <section class="page-section" id="page-reminders">
+          <div class="reminders-layout">
+            <div class="calendar-card">
+              <div class="calendar-header">
+                <div class="calendar-month" id="calendarMonth">April 2026</div>
+                <div class="calendar-nav">
+                  <button id="calPrev" aria-label="Previous month">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+                  <button id="calNext" aria-label="Next month">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="calendar-grid" id="calendarGrid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <div class="reminder-list-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Schedule</div>
+                  <div class="card-subtitle">Upcoming care tasks</div>
+                </div>
+                <button class="btn-primary" style="padding:8px 16px;font-size:12px;" id="addReminderBtn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add
+                </button>
+              </div>
+              <div id="reminderList">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══ Add Plant Modal ═══ -->
+  <div class="modal-overlay" id="addPlantModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Plant</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="plantName">Plant Name</label>
+          <input type="text" class="form-input" id="plantName" placeholder="e.g., My Peace Lily">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plantSpecies">Species</label>
+          <select class="form-select" id="plantSpecies">
+            <option value="">Select species...</option>
+            <option value="Spathiphyllum">Peace Lily (Spathiphyllum)</option>
+            <option value="Monstera deliciosa">Monstera Deliciosa</option>
+            <option value="Sansevieria">Snake Plant (Sansevieria)</option>
+            <option value="Ficus lyrata">Fiddle Leaf Fig</option>
+            <option value="Aloe vera">Aloe Vera</option>
+            <option value="Epipremnum aureum">Pothos (Devil's Ivy)</option>
+            <option value="Chlorophytum comosum">Spider Plant</option>
+            <option value="Ficus elastica">Rubber Plant</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="plantLocation">Location</label>
+            <select class="form-select" id="plantLocation">
+              <option value="Living Room">Living Room</option>
+              <option value="Bedroom">Bedroom</option>
+              <option value="Kitchen">Kitchen</option>
+              <option value="Bathroom">Bathroom</option>
+              <option value="Office">Office</option>
+              <option value="Balcony">Balcony</option>
+              <option value="Garden">Garden</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="wateringFreq">Watering Frequency</label>
+            <select class="form-select" id="wateringFreq">
+              <option value="2">Every 2 days</option>
+              <option value="3">Every 3 days</option>
+              <option value="5" selected>Every 5 days</option>
+              <option value="7">Weekly</option>
+              <option value="14">Bi-weekly</option>
+              <option value="30">Monthly</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plantNotes">Notes (optional)</label>
+          <input type="text" class="form-input" id="plantNotes" placeholder="Any special care instructions...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="modalCancel">Cancel</button>
+        <button class="btn-primary" id="savePlantBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Save Plant
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
